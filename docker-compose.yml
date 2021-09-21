@@ -1,0 +1,17 @@
+version: "3.7"
+
+services: 
+  nginx:
+    image: demo/nginx
+    build: images/nginx
+    ports: 
+      - 8000:80
+
+  jwt-verifier-php:
+    image: demo/jwt-verifier-php
+    container_name: jwt-verifier-php
+    build: .
+    environment: 
+      - JWT_AUDIENCE=account
+      - JWT_ISSUER=http://localhost:9000/auth/realms/test
+      - JWKS_URL=http://host.docker.internal:9000/auth/realms/test/protocol/openid-connect/certs
