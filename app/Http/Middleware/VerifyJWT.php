@@ -28,6 +28,7 @@ class VerifyJWT
             if ($jwt == null){
                 throw new Exception("Invalid Token");
             }
+            $request->jwt = $jwt;
             return $next($request);
         }catch(Exception $e){
             return Response::json(array('error' => $e->getMessage()), 401);  

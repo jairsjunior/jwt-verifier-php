@@ -2,6 +2,10 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,6 +17,7 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/', function (Request $request) {
+    Log::info("User at this call: " . $request->jwt->preferred_username);
+    return Response::json(array('msg' => 'Hello ' . $request->jwt->preferred_username));
 });
