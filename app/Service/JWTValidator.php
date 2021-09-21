@@ -42,6 +42,7 @@ class JWTValidator
     public static function verifyToken(string $jwt): ?object
     {
         try{
+            // Needs to add cache of this keys to not load the keys every time
             $jwks = static::getPublicKey();   
             if ($jwks) {
                 $payload = JWT::decode($jwt, JWK::parseKeySet($jwks), array('RS256'));
@@ -53,7 +54,6 @@ class JWTValidator
                     Log::info("Wrong Issuer at token");
                     return null;
                 }
-                if (isset($payload->aud) )
                 return $payload;
             }
         }catch(Exception $e){
