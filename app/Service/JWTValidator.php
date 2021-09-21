@@ -57,7 +57,7 @@ class JWTValidator
                 return $payload;
             }
         }catch(Exception $e){
-            Log::debug("Failed to validate the token: " . $e->getMessage());
+            Log::info("Failed to validate the token: " . $e->getMessage());
             throw new Exception($e->getMessage());
         }
         return null;
